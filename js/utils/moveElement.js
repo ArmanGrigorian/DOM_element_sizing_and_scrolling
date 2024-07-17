@@ -4,10 +4,10 @@ export default function moveElement(e, element) {
 			element.style.top = element.offsetTop - element.clientTop - 10 + "px";
 			break;
 		case "right":
-			element.style.left = element.offsetLeft - 10 + "px";
+			element.style.left = element.offsetLeft - 6 + "px";
 			break;
 		case "down":
-			element.style.top = element.offsetTop - 10 + "px";
+			element.style.top = element.offsetTop - 6 + "px";
 			break;
 		case "left":
 			element.style.left = element.offsetLeft - element.clientLeft - 10 + "px";

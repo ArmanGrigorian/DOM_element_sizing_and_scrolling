@@ -4,9 +4,6 @@ const div = document.getElementById("element");
 const spans = document.getElementsByTagName("span");
 const controls = document.getElementById("controls");
 
-controls.addEventListener("click", (e) => moveElement(e, div));
-div.addEventListener("scroll", (e) => getCoords(e.target, spans));
-div.addEventListener("resize", (e) => getCoords(e.target, spans));
 
 const callback = (mutationList) => {
 	for (const mutation of mutationList) {
@@ -17,6 +14,11 @@ const callback = (mutationList) => {
 
 const observer = new MutationObserver(callback);
 observer.observe(div, { attributes: true, childList: true, subtree: true });
+
+controls.addEventListener("click", (e) => moveElement(e, div));
+div.addEventListener("scroll", (e) => getCoords(e.target, spans));
+div.addEventListener("resize", (e) => getCoords(e.target, spans));
+window.addEventListener("DOMContentLoaded", () => getCoords(div, spans));
 
 console.group("Element");
 console.table({
