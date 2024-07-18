@@ -1,16 +1,30 @@
-export default function moveElement(e, element) {
+import { animateSpan, getRandomColor } from "./index.js";
+
+export default function moveElement(e, element, spans) {
 	switch (e.target.className) {
 		case "up":
-			element.style.top = element.offsetTop - element.clientTop - 10 + "px";
+			element.style.transform += "translateY(-10px)";
+			element.style.borderColor = getRandomColor();
+			spans.offsetTop.textContent = `${Number.parseInt(spans.offsetTop.textContent) + 10}px`;
+			animateSpan(spans.offsetTop);
 			break;
 		case "right":
-			element.style.left = element.offsetLeft - 6 + "px";
+			element.style.transform += "translateX(10px)";
+			element.style.borderColor = getRandomColor();
+			spans.offsetLeft.textContent = `${Number.parseInt(spans.offsetLeft.textContent) + 10}px`;
+			animateSpan(spans.offsetLeft);
 			break;
 		case "down":
-			element.style.top = element.offsetTop - 6 + "px";
+			element.style.transform += "translateY(10px)";
+			element.style.borderColor = getRandomColor();
+			spans.offsetTop.textContent = `${Number.parseInt(spans.offsetTop.textContent) - 10}px`;
+			animateSpan(spans.offsetTop);
 			break;
 		case "left":
-			element.style.left = element.offsetLeft - element.clientLeft - 10 + "px";
+			element.style.transform += "translateX(-10px)";
+			element.style.borderColor = getRandomColor();
+			spans.offsetLeft.textContent = `${Number.parseInt(spans.offsetLeft.textContent) - 10}px`;
+			animateSpan(spans.offsetLeft);
 			break;
 		default:
 			break;

@@ -1,0 +1,7 @@
+@keyframes animate {
+	50% {
+		transform: scale(1.2);
+		background-color: var(--color-red);
+		color: var(--color-white);
+  }
+}
