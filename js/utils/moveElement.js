@@ -5,25 +5,34 @@ export default function moveElement(e, element, spans) {
 		case "up":
 			element.style.transform += "translateY(-10px)";
 			element.style.borderColor = getRandomColor();
-			spans.offsetTop.textContent = `${Number.parseInt(spans.offsetTop.textContent) + 10}px`;
+			console.log(spans.offsetTop.textContent);
+			spans.offsetTop.textContent = `${
+				(Number.parseInt(spans.offsetTop.textContent) || element.offsetTop) + 10
+			}px`;
 			animateSpan(spans.offsetTop);
 			break;
 		case "right":
 			element.style.transform += "translateX(10px)";
 			element.style.borderColor = getRandomColor();
-			spans.offsetLeft.textContent = `${Number.parseInt(spans.offsetLeft.textContent) + 10}px`;
+			spans.offsetLeft.textContent = `${
+				(Number.parseInt(spans.offsetLeft.textContent) || element.offsetLeft) + 10
+			}px`;
 			animateSpan(spans.offsetLeft);
 			break;
 		case "down":
 			element.style.transform += "translateY(10px)";
 			element.style.borderColor = getRandomColor();
-			spans.offsetTop.textContent = `${Number.parseInt(spans.offsetTop.textContent) - 10}px`;
+			spans.offsetTop.textContent = `${
+				(Number.parseInt(spans.offsetTop.textContent) || element.offsetTop) - 10
+			}px`;
 			animateSpan(spans.offsetTop);
 			break;
 		case "left":
 			element.style.transform += "translateX(-10px)";
 			element.style.borderColor = getRandomColor();
-			spans.offsetLeft.textContent = `${Number.parseInt(spans.offsetLeft.textContent) - 10}px`;
+			spans.offsetLeft.textContent = `${
+				(Number.parseInt(spans.offsetLeft.textContent) || element.offsetLeft) - 10
+			}px`;
 			animateSpan(spans.offsetLeft);
 			break;
 		default:
