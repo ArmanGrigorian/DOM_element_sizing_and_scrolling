@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll, Resize, Move</title>
+  <link rel="stylesheet" href="../css/scrollResizeMove.css">
+  <script type="module" src="../js/scrollResizeMove.js"></script>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="../index.html">Element</a></li>
+        <li><a href="./screenWindowCoords.html">Screen, Window, Coordinates</a></li>
+        <li><a href="./scrollResizeMove.html">Scroll The Page</a></li>
+      </ul>
+    </nav>
+    <h1>Scroll, Resize, Move</h1>
+  </header>
+  <section>
+    <hgroup>
+      <h2>⚠️ Important:</h2>
+      <p> To scroll the page with JavaScript, its DOM must be fully built. For instance, if we try to scroll the page
+        with a script in <code>&lt;head&gt;</code>, it won't work. </p>
+      <p> Regular elements can be scrolled by changing scrollTop/scrollLeft. We can do the same for the page using
+        document.documentElement.scrollTop/scrollLeft (except Safari, where document.body.scrollTop/Left should be used
+        instead). Alternatively, there is a simpler, universal solution: special methods window.scrollBy(x,y) and
+        window.scrollTo(pageX,pageY). </p>
+    </hgroup>
+    <article>
+      <hgroup>
+        <h3>scrollBy</h3>
+        <p>The Window.scrollBy() method scrolls the document in the window by the given amount.</p>
+      </hgroup>
+      <ul>
+        <li><code>scrollBy(x-coord, y-coord)</code></li>
+        <li><code>scrollBy(options)</code></li>
+      </ul>
+      <div>
+        <form>
+          <input type="number" name="x" placeholder="x-Coord...">
+          <input type="number" name="y" placeholder="y-Coord...">
+          <input type="submit" value="Set">
+        </form>
+        <button type="button" id="scrollBy">scrollBy(<span></span>)</button>
+      </div>
+    </article>
+    <article>
+      <hgroup>
+        <h3>scrollTo</h3>
+        <p>The Window.scrollTo() scrolls to a particular set of coordinates in the document.</p>
+      </hgroup>
+      <ul>
+        <li><code>scrollTo(x-coord, y-coord)</code></li>
+        <li>
+          <code>scrollTo(options)</code>
+        </li>
+      </ul>
+      <div>
+        <form>
+          <input type="number" name="x" placeholder="x-Coord...">
+          <input type="number" name="y" placeholder="y-Coord...">
+          <input type="submit" value="Set">
+        </form>
+        <button type="button" id="scrollTo">scrollTo(<span></span>)</button>
+      </div>
+    </article>
+    <article>
+      <hgroup>
+        <h3>scroll</h3>
+        <p>Window.scrollTo() is effectively the same as this method.</p>
+      </hgroup>
+    </article>
+    <article>
+      <hgroup>
+        <h3>scrollIntoView</h3>
+        <p>The Element.scrollIntoView() method scrolls the element into view.</p>
+      </hgroup>
+      <ul>
+        <li><code>scrollIntoView(alignToTop)</code></li>
+        <li><code>scrollIntoView(options)</code></li>
+      </ul>
+      <div>
+        <form>
+          <label for="alignToTop">Align To Top:</label>
+          <input type="checkbox" name="alignToTop" value="true" id="alignToTop">
+          <input type="submit" value="Set">
+        </form>
+        <button type="button" id="scrollIntoView">scrollIntoView(<span></span>)</button>
+      </div>
+    </article>
+    <article>
+      <h3>⚠️ As of Firefox 7, websites can no longer move a browser window in the following cases:</h3>
+      <ol>
+        <li>You can't move a window or tab that wasn't created by Window.open().</li>
+        <li>You can't move a window or tab when it's in a window with more than one tab.</li>
+      </ol>
+    </article>
+    <article>
+      <hgroup>
+        <h3>resizeBy</h3>
+        <p>The Window.resizeBy() method resizes the current window by a specified amount.</p>
+      </hgroup>
+      <ul>
+        <li>
+          <code>resizeBy(x-Delta, y-Delta)</code>
+        </li>
+      </ul>
+      <div>
+        <form>
+          <input type="text" name="x" placeholder="x-Delta...">
+          <input type="text" name="y" placeholder="y-Delta...">
+          <input type="submit" value="Set">
+        </form>
+        <button type="button" id="resizeBy">resizeBy(<span></span>)</button>
+        <button type="button" class="openWindow">OPEN window</button>
+      </div>
+    </article>
+    <article>
+      <hgroup>
+        <h3>resizeTo</h3>
+        <p>The Window.resizeTo() method dynamically resizes the window.</p>
+      </hgroup>
+      <ul>
+        <li><code>resizeTo(width, height)</code></li>
+      </ul>
+      <div>
+        <form>
+          <input type="text" name="x" placeholder="width...">
+          <input type="text" name="y" placeholder="height...">
+          <input type="submit" value="Set">
+        </form>
+        <button type="button" id="resizeTo">resizeTo(<span></span>)</button>
+        <button type="button" class="openWindow">OPEN window</button>
+      </div>
+    </article>
+    <article>
+      <hgroup>
+        <h3>moveBy</h3>
+        <p>The moveBy() method of the Window interface moves the current window by a specified amount.</p>
+      </hgroup>
+      <ul>
+        <li><code>moveBy(x-Delta, y-Delta)</code></li>
+      </ul>
+      <div>
+        <form>
+          <input type="text" name="x" placeholder="x-Delta...">
+          <input type="text" name="y" placeholder="y-Delta...">
+          <input type="submit" value="Set">
+        </form>
+        <button type="button" id="moveBy">moveBy(<span></span>)</button>
+        <button type="button" class="openWindow">OPEN window</button>
+      </div>
+    </article>
+    <article>
+      <hgroup>
+        <h3>moveTo</h3>
+        <p>The moveTo() method of the Window interface moves the current window to the specified coordinates.</p>
+      </hgroup>
+      <ul>
+        <li><code>moveBy(x, y)</code></li>
+      </ul>
+      <div>
+        <form>
+          <input type="text" name="x" placeholder="x-Coord...">
+          <input type="text" name="y" placeholder="y-Coord...">
+          <input type="submit" value="Set">
+        </form>
+        <button type="button" id="moveTo">moveTo(<span></span>)</button>
+        <button type="button" class="openWindow">OPEN window</button>
+      </div>
+    </article>
+  </section>
+</body>
+
+</html>

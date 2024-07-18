@@ -18,34 +18,50 @@ main {
 	left: 0px;
 	top: 0px;
 
-	nav {
-		background-color: var(--background-color-grey);
-		ul {
-			padding: 16px;
-			align-items: center;
-			display: flex;
-			gap: 16px;
-			justify-content: center;
-			list-style-type: none;
+	header {
+		nav {
+			background-color: var(--background-color-grey);
+			ul {
+				padding: 16px;
+				align-items: center;
+				display: flex;
+				column-gap: 4%;
+				justify-content: center;
+				list-style-type: none;
 
-			a {
-				color: var(--color-green);
-				font-weight: 600;
-				text-decoration: none;
+				a {
+					color: var(--color-black);
+					font-weight: 600;
+					text-decoration: none;
 
-				&::after {
-					content: "";
-					display: block;
-					width: 100%;
-					height: 2px;
-					background-color: var(--color-green);
-					transform: scale(0);
-					transition: transform 150ms ease-in-out;
-				}
-				&:hover::after {
-					transform: scale(1);
+					&:visited {
+						color: var(--color-black);
+					}
+
+					&:hover {
+						color: var(--color-green);
+					}
+
+					&::after {
+						content: "";
+						display: block;
+						width: 100%;
+						height: 2px;
+						background-color: var(--color-green);
+						transform: scale(0);
+						transition: transform 150ms ease-in-out;
+					}
+					&:hover::after {
+						transform: scale(1);
+					}
 				}
 			}
+		}
+		h1 {
+			background-color: var(--background-color-grey);
+			color: var(--color-green);
+			padding: 16px;
+			text-align: center;
 		}
 	}
 

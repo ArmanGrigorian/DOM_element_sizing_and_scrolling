@@ -1,9 +1,5 @@
 import { getCoordinates, getDisplayParams, getParams } from "./utils/index.js";
 
-// Screen
-// Window
-// Coordinates
-
 const screenSpans = document.getElementsByClassName("screenSpan");
 const screenDetails = document.getElementById("screenDetails");
 const windowSpans = document.getElementsByClassName("windowSpan");

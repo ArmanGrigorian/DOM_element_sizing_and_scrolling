@@ -1,4 +1,5 @@
 export { default as animateSpan } from "./animateSpan.js";
+export { default as controller } from "./controller.js";
 export { default as getCoordinates } from "./getCoordinates.js";
 export { default as getCoords } from "./getCoords.js";
 export { default as getDisplayParams } from "./getDisplayParams.js";

@@ -1,0 +1,133 @@
+@import "./variables.css";
+
+* {
+	box-sizing: border-box;
+	font-family: sans-serif;
+	margin: 0px;
+	padding: 0px;
+}
+
+header {
+	nav {
+		background-color: var(--background-color-grey);
+
+		ul {
+			align-items: center;
+			column-gap: 4%;
+			display: flex;
+			justify-content: center;
+			list-style-type: none;
+			padding: 16px;
+
+			a {
+				color: var(--color-black);
+				font-weight: 600;
+				text-decoration: none;
+
+				&:visited {
+					color: var(--color-black);
+				}
+
+				&:hover {
+					color: var(--color-green);
+				}
+
+				&::after {
+					background-color: var(--color-green);
+					content: "";
+					display: block;
+					height: 2px;
+					transform: scale(0);
+					transition: transform 150ms ease-in-out;
+					width: 100%;
+				}
+				&:hover::after {
+					transform: scale(1);
+				}
+			}
+		}
+	}
+
+	h1 {
+		background-color: var(--background-color-grey);
+		color: var(--color-green);
+		padding: 16px;
+		text-align: center;
+	}
+}
+
+section {
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+	padding: 16px;
+
+	hgroup {
+		h2,
+		h3 {
+			color: var(--color-green);
+			padding-bottom: 2px;
+		}
+
+		p {
+			font-weight: 600;
+		}
+	}
+
+	article {
+		align-items: start;
+		background-color: var(--background-color-grey);
+		border-radius: 4px;
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		padding-block: 8px;
+		padding: 16px;
+
+		ul {
+			list-style-position: inside;
+			list-style-type: square;
+		}
+
+		ol{
+			list-style-position: inside;
+		}
+
+		li{
+			padding-bottom: 4px;
+		}
+
+		div {
+			display: flex;
+			flex-direction: column;
+			align-items: start;
+			gap: 16px;
+
+			form {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+
+				input{
+					padding: 4px 8px;
+				}
+			}
+
+			button {
+				border-radius: 4px;
+				border: 2px solid var(--color-green);
+				font-size: 16px;
+				padding: 8px 16px;
+
+				&:hover {
+					background-color: var(--color-green);
+					color: var(--color-white);
+				}
+
+				&:active {
+					transform: scale(0.95);
+				}
+			}
+		}
+	}
+}
