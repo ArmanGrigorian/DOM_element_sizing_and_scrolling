@@ -1,179 +1,277 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scroll & Window Laboratory — DOM Explorer Studio</title>
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/scrollResizeMove.css" />
+    <script type="module" src="../js/scrollResizeMove.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scroll, Resize, Move</title>
-  <link rel="stylesheet" href="../css/scrollResizeMove.css">
-  <script type="module" src="../js/scrollResizeMove.js"></script>
-</head>
+  <body>
+    <!-- Portfolio Top Banner -->
+    <div class="portfolio-banner">
+      <div class="brand">
+        <span>DOM Explorer Studio</span>
+        <span class="badge">Upwork Portfolio Showcase</span>
+      </div>
+      <div class="meta">
+        <span
+          >Advanced DOM Sizing, Box Model & Event Architecture by
+          <strong>Arman Grigoryan</strong></span
+        >
+      </div>
+    </div>
 
-<body>
-  <header>
-    <nav>
-      <ul>
-        <li><a href="../index.html">Element</a></li>
-        <li><a href="./screenWindowCoords.html">Screen, Window, Coordinates</a></li>
-        <li><a href="./scrollResizeMove.html">Scroll The Page</a></li>
-      </ul>
-    </nav>
-    <h1>Scroll, Resize, Move</h1>
-  </header>
-  <section>
-    <hgroup>
-      <h2>⚠️ Important:</h2>
-      <p> To scroll the page with JavaScript, its DOM must be fully built. For instance, if we try to scroll the page
-        with a script in <code>&lt;head&gt;</code>, it won't work. </p>
-      <p> Regular elements can be scrolled by changing scrollTop/scrollLeft. We can do the same for the page using
-        document.documentElement.scrollTop/scrollLeft (except Safari, where document.body.scrollTop/Left should be used
-        instead). Alternatively, there is a simpler, universal solution: special methods window.scrollBy(x,y) and
-        window.scrollTo(pageX,pageY). </p>
-    </hgroup>
-    <article>
-      <hgroup>
-        <h3>scrollBy</h3>
-        <p>The Window.scrollBy() method scrolls the document in the window by the given amount.</p>
-      </hgroup>
-      <ul>
-        <li><code>scrollBy(x-coord, y-coord)</code></li>
-        <li><code>scrollBy(options)</code></li>
-      </ul>
-      <div>
-        <form>
-          <input type="number" name="x" placeholder="x-Coord...">
-          <input type="number" name="y" placeholder="y-Coord...">
-          <input type="submit" value="Set">
-        </form>
-        <button type="button" id="scrollBy">scrollBy(<span></span>)</button>
+    <!-- Studio Header & Navigation -->
+    <header class="studio-header">
+      <div class="header-container">
+        <a href="../index.html" class="studio-logo">
+          <div class="logo-icon">&lt;/&gt;</div>
+          <div class="logo-text">
+            <span class="logo-title">DOM Explorer Studio</span>
+            <span class="logo-subtitle">Interactive Metric Inspector & Laboratory</span>
+          </div>
+        </a>
+        <nav class="studio-nav">
+          <ul>
+            <li><a href="../index.html">Element Inspector</a></li>
+            <li><a href="./screenWindowCoords.html">Screen & Coordinates</a></li>
+            <li><a href="./scrollResizeMove.html" class="active">Scroll & Window Lab</a></li>
+          </ul>
+        </nav>
+        <button type="button" class="theme-toggle-btn" id="themeToggleBtn">☀️ Light Mode</button>
       </div>
-    </article>
-    <article>
-      <hgroup>
-        <h3>scrollTo</h3>
-        <p>The Window.scrollTo() scrolls to a particular set of coordinates in the document.</p>
-      </hgroup>
-      <ul>
-        <li><code>scrollTo(x-coord, y-coord)</code></li>
-        <li>
-          <code>scrollTo(options)</code>
-        </li>
-      </ul>
-      <div>
-        <form>
-          <input type="number" name="x" placeholder="x-Coord...">
-          <input type="number" name="y" placeholder="y-Coord...">
-          <input type="submit" value="Set">
-        </form>
-        <button type="button" id="scrollTo">scrollTo(<span></span>)</button>
-      </div>
-    </article>
-    <article>
-      <hgroup>
-        <h3>scroll</h3>
-        <p>Window.scrollTo() is effectively the same as this method.</p>
-      </hgroup>
-    </article>
-    <article>
-      <hgroup>
-        <h3>scrollIntoView</h3>
-        <p>The Element.scrollIntoView() method scrolls the element into view.</p>
-      </hgroup>
-      <ul>
-        <li><code>scrollIntoView(alignToTop)</code></li>
-        <li><code>scrollIntoView(options)</code></li>
-      </ul>
-      <div>
-        <form>
-          <label for="alignToTop">Align To Top:</label>
-          <input type="checkbox" name="alignToTop" value="true" id="alignToTop">
-          <input type="submit" value="Set">
-        </form>
-        <button type="button" id="scrollIntoView">scrollIntoView(<span></span>)</button>
-      </div>
-    </article>
-    <article>
-      <h3>⚠️ As of Firefox 7, websites can no longer move a browser window in the following cases:</h3>
-      <ol>
-        <li>You can't move a window or tab that wasn't created by Window.open().</li>
-        <li>You can't move a window or tab when it's in a window with more than one tab.</li>
-      </ol>
-    </article>
-    <article>
-      <hgroup>
-        <h3>resizeBy</h3>
-        <p>The Window.resizeBy() method resizes the current window by a specified amount.</p>
-      </hgroup>
-      <ul>
-        <li>
-          <code>resizeBy(x-Delta, y-Delta)</code>
-        </li>
-      </ul>
-      <div>
-        <form>
-          <input type="text" name="x" placeholder="x-Delta...">
-          <input type="text" name="y" placeholder="y-Delta...">
-          <input type="submit" value="Set">
-        </form>
-        <button type="button" id="resizeBy">resizeBy(<span></span>)</button>
-        <button type="button" class="openWindow">OPEN window</button>
-      </div>
-    </article>
-    <article>
-      <hgroup>
-        <h3>resizeTo</h3>
-        <p>The Window.resizeTo() method dynamically resizes the window.</p>
-      </hgroup>
-      <ul>
-        <li><code>resizeTo(width, height)</code></li>
-      </ul>
-      <div>
-        <form>
-          <input type="text" name="x" placeholder="width...">
-          <input type="text" name="y" placeholder="height...">
-          <input type="submit" value="Set">
-        </form>
-        <button type="button" id="resizeTo">resizeTo(<span></span>)</button>
-        <button type="button" class="openWindow">OPEN window</button>
-      </div>
-    </article>
-    <article>
-      <hgroup>
-        <h3>moveBy</h3>
-        <p>The moveBy() method of the Window interface moves the current window by a specified amount.</p>
-      </hgroup>
-      <ul>
-        <li><code>moveBy(x-Delta, y-Delta)</code></li>
-      </ul>
-      <div>
-        <form>
-          <input type="text" name="x" placeholder="x-Delta...">
-          <input type="text" name="y" placeholder="y-Delta...">
-          <input type="submit" value="Set">
-        </form>
-        <button type="button" id="moveBy">moveBy(<span></span>)</button>
-        <button type="button" class="openWindow">OPEN window</button>
-      </div>
-    </article>
-    <article>
-      <hgroup>
-        <h3>moveTo</h3>
-        <p>The moveTo() method of the Window interface moves the current window to the specified coordinates.</p>
-      </hgroup>
-      <ul>
-        <li><code>moveBy(x, y)</code></li>
-      </ul>
-      <div>
-        <form>
-          <input type="text" name="x" placeholder="x-Coord...">
-          <input type="text" name="y" placeholder="y-Coord...">
-          <input type="submit" value="Set">
-        </form>
-        <button type="button" id="moveTo">moveTo(<span></span>)</button>
-        <button type="button" class="openWindow">OPEN window</button>
-      </div>
-    </article>
-  </section>
-</body>
+    </header>
 
+    <!-- Main Workspace -->
+    <main class="studio-main">
+      <!-- Important Browser Requirement Notice -->
+      <div class="alert-banner alert-info">
+        <div class="alert-icon">⚠️</div>
+        <div class="alert-content">
+          <strong>DOM Readiness & Security Architecture:</strong>
+          <p>
+            To scroll the page with JavaScript, the DOM must be fully built (`DOMContentLoaded` or
+            script type `module`). Additionally, modern browser security controls restrict moving or
+            resizing the primary browser window. To test `resizeBy`, `resizeTo`, `moveBy`, and
+            `moveTo`, click the <strong>Launch Test Popup Window</strong> button first!
+          </p>
+        </div>
+      </div>
+
+      <!-- Two-Column Laboratory Grid -->
+      <div class="grid-2" style="margin-top: 24px">
+        <!-- Left Panel: Page Scrolling Laboratory -->
+        <section class="glass-card scroll-lab">
+          <h2 class="section-title">
+            <span class="indicator" style="background: var(--color-emerald)"></span> Page Scrolling
+            Laboratory
+          </h2>
+          <p class="section-hint">
+            Test `scrollBy`, `scrollTo`, and `scrollIntoView` with custom parameters or quick-action
+            presets.
+          </p>
+
+          <!-- Quick Action Presets -->
+          <div class="presets-container">
+            <h3>⚡ Quick-Action Presets</h3>
+            <div class="presets-grid">
+              <button type="button" class="btn-preset" id="presetScrollDown">
+                ⬇️ Smooth Scroll Down 300px
+              </button>
+              <button type="button" class="btn-preset" id="presetScrollTop">
+                ⬆️ Smooth Scroll to Top
+              </button>
+              <button type="button" class="btn-preset" id="presetScrollIntoView">
+                🎯 Scroll Target Box into View
+              </button>
+            </div>
+          </div>
+
+          <!-- Scroll Methods Grid -->
+          <div class="methods-list">
+            <!-- scrollBy -->
+            <article class="method-card">
+              <div class="method-header">
+                <h3>window.scrollBy(x, y)</h3>
+                <p>Scrolls the document in the window by the specified relative delta values.</p>
+              </div>
+              <form class="method-form">
+                <input type="number" name="x" placeholder="x delta (e.g. 0)" value="0" />
+                <input type="number" name="y" placeholder="y delta (e.g. 150)" value="150" />
+                <button type="button" class="btn-execute" id="scrollBy">
+                  Execute scrollBy(<span>0,150</span>)
+                </button>
+              </form>
+            </article>
+
+            <!-- scrollTo -->
+            <article class="method-card">
+              <div class="method-header">
+                <h3>window.scrollTo(pageX, pageY)</h3>
+                <p>Scrolls the window directly to an absolute coordinate inside the document.</p>
+              </div>
+              <form class="method-form">
+                <input type="number" name="x" placeholder="pageX (e.g. 0)" value="0" />
+                <input type="number" name="y" placeholder="pageY (e.g. 400)" value="400" />
+                <button type="button" class="btn-execute" id="scrollTo">
+                  Execute scrollTo(<span>0,400</span>)
+                </button>
+              </form>
+            </article>
+
+            <!-- scrollIntoView -->
+            <article class="method-card">
+              <div class="method-header">
+                <h3>Element.scrollIntoView(options)</h3>
+                <p>
+                  Scrolls the element's parent containers so that the target element is visible in
+                  the viewport.
+                </p>
+              </div>
+              <form class="method-form checkbox-form">
+                <label class="checkbox-label" for="alignToTop">
+                  <input type="checkbox" name="alignToTop" value="true" id="alignToTop" checked />
+                  <span>Align To Top (`true` = top edge, `false` = bottom edge)</span>
+                </label>
+                <button type="button" class="btn-execute" id="scrollIntoView">
+                  Execute scrollIntoView(<span>true</span>)
+                </button>
+              </form>
+            </article>
+          </div>
+
+          <!-- Target Box for scrollIntoView -->
+          <div class="scroll-target-box" id="scrollTargetBox">
+            <span class="target-badge">🎯 #scrollTargetBox</span>
+            <p>This element is the designated target when you click `scrollIntoView()` above!</p>
+          </div>
+        </section>
+
+        <!-- Right Panel: Window Manipulation Suite -->
+        <section class="glass-card window-lab">
+          <h2 class="section-title">
+            <span class="indicator" style="background: var(--color-cyan)"></span> Window
+            Manipulation Suite
+          </h2>
+          <p class="section-hint">
+            Test `resizeBy`, `resizeTo`, `moveBy`, and `moveTo` on a controlled secondary browser
+            window.
+          </p>
+
+          <!-- Popup Launch Box -->
+          <div class="popup-launcher-card">
+            <div class="popup-info">
+              <h4>Step 1: Launch Test Window</h4>
+              <p>
+                Open a dedicated 300×300 popup window so your browser allows JavaScript to
+                dynamically resize and reposition it.
+              </p>
+            </div>
+            <button type="button" class="btn-launch openWindow">🚀 Launch Test Popup Window</button>
+          </div>
+
+          <!-- Window Methods Grid -->
+          <div class="methods-list" style="margin-top: 20px">
+            <!-- resizeBy -->
+            <article class="method-card card-window">
+              <div class="method-header">
+                <h3>window.resizeBy(x-Delta, y-Delta)</h3>
+                <p>
+                  Resizes the current window by a specified relative amount (`+50`, `-50`, etc.).
+                </p>
+              </div>
+              <form class="method-form">
+                <input type="number" name="x" placeholder="x-Delta" value="50" />
+                <input type="number" name="y" placeholder="y-Delta" value="50" />
+                <button type="button" class="btn-execute btn-win" id="resizeBy">
+                  Execute resizeBy(<span>50,50</span>)
+                </button>
+              </form>
+            </article>
+
+            <!-- resizeTo -->
+            <article class="method-card card-window">
+              <div class="method-header">
+                <h3>window.resizeTo(width, height)</h3>
+                <p>
+                  Dynamically resizes the window to the exact absolute width and height specified.
+                </p>
+              </div>
+              <form class="method-form">
+                <input type="number" name="x" placeholder="width" value="450" />
+                <input type="number" name="y" placeholder="height" value="450" />
+                <button type="button" class="btn-execute btn-win" id="resizeTo">
+                  Execute resizeTo(<span>450,450</span>)
+                </button>
+              </form>
+            </article>
+
+            <!-- moveBy -->
+            <article class="method-card card-window">
+              <div class="method-header">
+                <h3>window.moveBy(x-Delta, y-Delta)</h3>
+                <p>
+                  Moves the window relative to its current screen coordinates (`+100`, `-100`,
+                  etc.).
+                </p>
+              </div>
+              <form class="method-form">
+                <input type="number" name="x" placeholder="x-Delta" value="100" />
+                <input type="number" name="y" placeholder="y-Delta" value="100" />
+                <button type="button" class="btn-execute btn-win" id="moveBy">
+                  Execute moveBy(<span>100,100</span>)
+                </button>
+              </form>
+            </article>
+
+            <!-- moveTo -->
+            <article class="method-card card-window">
+              <div class="method-header">
+                <h3>window.moveTo(x-Coord, y-Coord)</h3>
+                <p>
+                  Moves the window to the exact screen coordinates (`0,0` is top-left of monitor).
+                </p>
+              </div>
+              <form class="method-form">
+                <input type="number" name="x" placeholder="x-Coord" value="100" />
+                <input type="number" name="y" placeholder="y-Coord" value="100" />
+                <button type="button" class="btn-execute btn-win" id="moveTo">
+                  Execute moveTo(<span>100,100</span>)
+                </button>
+              </form>
+            </article>
+          </div>
+        </section>
+      </div>
+
+      <!-- Live Execution Event Console -->
+      <section class="terminal-log-card" style="margin-top: 32px">
+        <div class="terminal-header">
+          <div class="terminal-title">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <strong>Live API Execution Terminal / Event Log</strong>
+          </div>
+          <button type="button" class="btn-clear-log" id="clearConsoleBtn">🗑️ Clear Console</button>
+        </div>
+        <div class="terminal-body" id="executionConsole">
+          <div class="log-entry system-entry">
+            <span class="timestamp">[SYSTEM]</span> DOM Explorer Studio Scroll & Window Laboratory
+            loaded. Ready for API dispatch.
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="studio-footer">
+      <p>
+        <strong>DOM Explorer Studio</strong> — Built for Upwork Portfolio Demonstration. Designed by
+        <strong>Arman Grigoryan</strong>.
+      </p>
+    </footer>
+  </body>
 </html>

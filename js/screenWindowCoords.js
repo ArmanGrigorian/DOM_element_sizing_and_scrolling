@@ -1,69 +1,66 @@
-import { getCoordinates, getDisplayParams, getParams } from "./utils/index.js";
+import { getCoordinates, getDisplayParams, getParams, initThemeToggle } from "./utils/index.js";
 
 const screenSpans = document.getElementsByClassName("screenSpan");
 const screenDetails = document.getElementById("screenDetails");
 const windowSpans = document.getElementsByClassName("windowSpan");
 const coordinatesSpans = document.getElementsByClassName("list__span");
+const radarArena = document.getElementById("radarArena");
+const hudClient = document.getElementById("hudClient");
+const hudOffset = document.getElementById("hudOffset");
 
 window.addEventListener("resize", () => getParams(screenSpans, windowSpans));
 window.addEventListener("scroll", () => getParams(screenSpans, windowSpans));
-window.addEventListener("mousemove", (e) => getCoordinates(e, coordinatesSpans));
-window.addEventListener("DOMContentLoaded", () => {
+
+window.addEventListener("mousemove", (e) => {
+	getCoordinates(e, coordinatesSpans);
+
+	// Update Radar Arena Crosshairs if cursor is inside or near the arena
+	if (radarArena) {
+		const rect = radarArena.getBoundingClientRect();
+		const relativeX = Math.round(e.clientX - rect.left);
+		const relativeY = Math.round(e.clientY - rect.top);
+
+		radarArena.style.setProperty("--mouse-x", `${relativeX}px`);
+		radarArena.style.setProperty("--mouse-y", `${relativeY}px`);
+
+		if (hudClient) hudClient.textContent = `${Math.round(e.clientX)}, ${Math.round(e.clientY)}`;
+		if (hudOffset) hudOffset.textContent = `${Math.round(e.offsetX)}, ${Math.round(e.offsetY)}`;
+	}
+});
+
+const initPage = () => {
+	initThemeToggle();
 	getParams(screenSpans, windowSpans);
-	getDisplayParams(screenDetails);
-	getCoordinates(window, coordinatesSpans);
-});
+	if (screenDetails && screenDetails.children.length === 0) {
+		getDisplayParams(screenDetails);
+	}
+	// Initial simulated mouse coordinates
+	const simulatedEvent = {
+		clientX: Math.round(window.innerWidth / 2),
+		clientY: Math.round(window.innerHeight / 2),
+		pageX: Math.round(window.innerWidth / 2),
+		pageY: Math.round(window.innerHeight / 2),
+		offsetX: 120,
+		offsetY: 80,
+		screenX: Math.round(window.screenX + window.innerWidth / 2),
+		screenY: Math.round(window.screenY + window.innerHeight / 2),
+		layerX: 120,
+		layerY: 80
+	};
+	getCoordinates(simulatedEvent, coordinatesSpans);
+	if (hudClient) hudClient.textContent = `${simulatedEvent.clientX}, ${simulatedEvent.clientY}`;
+	if (hudOffset) hudOffset.textContent = `${simulatedEvent.offsetX}, ${simulatedEvent.offsetY}`;
+	if (radarArena) {
+		radarArena.style.setProperty("--mouse-x", `${Math.round(radarArena.clientWidth / 2)}px`);
+		radarArena.style.setProperty("--mouse-y", `${Math.round(radarArena.clientHeight / 2)}px`);
+	}
+};
 
-console.group("screen");
-console.table({
-	"// screen //": "",
-	screen: screen,
-	screenTop: screenTop,
-	screenLeft: screenLeft,
-	screenX: screenX,
-	screenY: screenY,
-});
-console.groupEnd();
+window.addEventListener("DOMContentLoaded", initPage);
+if (document.readyState === "complete" || document.readyState === "interactive") {
+	initPage();
+}
 
-console.group("window");
-console.table({
-	"// outer //": "",
-	outerWidth: "window—ի երկարությունը՝ ներառյալ sidebar-ը, window chrome-ը և resizing border-ը",
-	outerHeight:
-		"window—ի բարձրությունը՝ ներառյալ բոլոր sidebar-երը, window chrome-ը և resizing border-ը",
-	"// inner //": "",
-	innerWidth: "window—ի երկարությունը՝ ներառում է scrollbar-ը, եթե այն առկա է",
-	innerHeight: "window—ի բարձրությունը՝ ներառում է scrollbar-ը, եթե այն առկա է",
-	"// scrolling //": "",
-	scrollX: "ցույց է տալիս թե որքան է document-ը scroll եղած վերևից",
-	scrollY: "ցույց է տալիս թե որքան է document-ը scroll եղած վերևից",
-	pageXOffset: "deprecated: փոխարինել scrollX",
-	pageYOffset: "deprecated: փոխարինել scrollY",
-});
-console.groupEnd();
-
-console.group("Coordinates");
-console.table({
-	"// screen //": "հաշվում է monitor/window-ից",
-	screenX: "mouseEvent-ի հորիզոնական կոորդինատը` monitor/window-ի ձախ եզրից",
-	screenY: "mouseEvent-ի ուղղահայաց կոորդինատը` monitor/window-ի վերևի եզրից",
-	"// offset //": "հաշվում է ծնողի padding-ից",
-	offsetX:
-		"mouseEvent-ի հորիզոնական կոորդինատը, որը ցույց է տալիս տեղաշարժը այդ event-ի և target node-ի padding edge-ի միջև",
-	offsetY:
-		"mouseEvent-ի ուղղահայաց կոորդինատը, որը ցույց է տալիս տեղաշարժը այդ event-ի և target node-ի padding edge-ի միջև",
-	"// page //": "հաշվում է document-ից",
-	pageX:
-		"mouseEvent-ի հորիզոնական կոորդինատը` document-ի ձախ եզրից, որը ներառում է նաև փաստաթղթի այն հատվածը, որը տեսանելի չէ",
-	pageY:
-		"mouseEvent-ի ուղղահայաց կոորդինատը` document-ի վերևի եզրից, որը ներառում է նաև փաստաթղթի այն հատվածը, որը տեսանելի չէ",
-	"// client //": "հաշվում է viewport-ից",
-	clientX:
-		"mouseEvent-ի հորիզոնական կոորդինատը viewport-ի ձախ եզրից, որը ի տարբերություն pageX-ի չի ներառում փաստաթղթի այն հատվածը, որը տեսանելի չէ",
-	clientY:
-		"mouseEvent-ի ուղղահայաց կոորդինատը viewport-ի ձախ եզրից, որը ի տարբերություն pageY-ի չի ներառում փաստաթղթի այն հատվածը, որը տեսանելի չէ",
-	"// layer //": "հաշվում է layer-ից",
-	layerX: "Non-standard: mouseEvent-ի հորիզոնական կոորդինատը ընթացիկ շերտի/layer-ի համեմատ:",
-	layerY: "Non-standard: mouseEvent-ի ուղղահայաց կոորդինատը ընթացիկ շերտի/layer-ի համեմատ:",
-});
+console.group("DOM Explorer Studio — Screen & Window");
+console.log("Real-time coordinate crosshairs and event monitoring initialized.");
 console.groupEnd();

@@ -8,3 +8,5 @@ export { default as getRandomColor } from "./getRandomColor.js";
 export { default as getScreenParams } from "./getScreenParams.js";
 export { default as getWindowParams } from "./getWindowParams.js";
 export { default as moveElement } from "./moveElement.js";
+export { default as initThemeToggle } from "./themeToggle.js";
+

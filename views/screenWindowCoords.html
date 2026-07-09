@@ -1,83 +1,348 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Screen, Window & Coordinates — DOM Explorer Studio</title>
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/screenWindowCoords.css" />
+    <script type="module" src="../js/screenWindowCoords.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Screen, Window, Coordinates</title>
-  <link rel="stylesheet" href="../css/screenWindowCoords.css">
-  <script type="module" src="../js/screenWindowCoords.js"></script>
-</head>
+  <body>
+    <!-- Portfolio Top Banner -->
+    <div class="portfolio-banner">
+      <div class="brand">
+        <span>DOM Explorer Studio</span>
+        <span class="badge">Upwork Portfolio Showcase</span>
+      </div>
+      <div class="meta">
+        <span
+          >Advanced DOM Sizing, Box Model & Event Architecture by
+          <strong>Arman Grigoryan</strong></span
+        >
+      </div>
+    </div>
 
-<body>
-  <main>
-    <header>
-      <nav>
-        <ul>
-          <li><a href="../index.html">Element</a></li>
-          <li><a href="./screenWindowCoords.html">Screen, Window, Coordinates</a></li>
-          <li><a href="./scrollResizeMove.html">Scroll The Page</a></li>
-        </ul>
-      </nav>
-      <h1>Screen, Window, Coordinates</h1>
+    <!-- Studio Header & Navigation -->
+    <header class="studio-header">
+      <div class="header-container">
+        <a href="../index.html" class="studio-logo">
+          <div class="logo-icon">&lt;/&gt;</div>
+          <div class="logo-text">
+            <span class="logo-title">DOM Explorer Studio</span>
+            <span class="logo-subtitle">Interactive Metric Inspector & Laboratory</span>
+          </div>
+        </a>
+        <nav class="studio-nav">
+          <ul>
+            <li><a href="../index.html">Element Inspector</a></li>
+            <li><a href="./screenWindowCoords.html" class="active">Screen & Coordinates</a></li>
+            <li><a href="./scrollResizeMove.html">Scroll & Window Lab</a></li>
+          </ul>
+        </nav>
+        <button type="button" class="theme-toggle-btn" id="themeToggleBtn">☀️ Light Mode</button>
+      </div>
     </header>
-    <div>
-      <section class="screen">
-        <h2>Screen</h2>
-        <ul>
-          <li>screenTop: <span class="screenSpan" data-name="screenTop"></span></li>
-          <li>screenLeft: <span class="screenSpan" data-name="screenLeft"></span></li>
-          <li>screenX: <span class="screenSpan" data-name="screenX"></span></li>
-          <li>screenY: <span class="screenSpan" data-name="screenY"></span></li>
-        </ul>
-        <ul class="screenDetails" id="screenDetails"></ul>
-      </section>
-      <section class="coordinates">
-        <h2>Coordinates</h2>
-        <div>
-          <ul>
-            <li>screenX: <span class="list__span" data-name="screenX"></span></li>
-            <li>offsetX: <span class="list__span" data-name="offsetX"></span></li>
-            <li>pageX: <span class="list__span" data-name="pageX"></span></li>
-            <li>clientX: <span class="list__span" data-name="clientX"></span></li>
-            <li>layerX: <span class="list__span" data-name="layerX"></span></li>
-          </ul>
-          <ul>
-            <li>screenY: <span class="list__span" data-name="screenY"></span></li>
-            <li>offsetY: <span class="list__span" data-name="offsetY"></span></li>
-            <li>pageY: <span class="list__span" data-name="pageY"></span></li>
-            <li>clientY: <span class="list__span" data-name="clientY"></span></li>
-            <li>layerY: <span class="list__span" data-name="layerY"></span></li>
-          </ul>
+
+    <!-- Main Workspace -->
+    <main class="studio-main">
+      <!-- Live Coordinate Tracking HUD Arena -->
+      <section class="glass-card coordinate-tracker-section" style="margin-bottom: 24px">
+        <div class="workspace-header">
+          <h2 class="section-title">
+            <span class="indicator" style="background: var(--color-cyan)"></span> Live Coordinate
+            Tracking HUD & Target Arena
+          </h2>
+          <p class="section-hint">
+            Move your mouse inside the radar arena or over the interactive target box below. Notice
+            the real-time difference between local element coordinates (`offsetX/Y`), viewport
+            coordinates (`clientX/Y`), document coordinates (`pageX/Y`), and monitor coordinates
+            (`screenX/Y`).
+          </p>
+        </div>
+
+        <div class="radar-arena" id="radarArena">
+          <div class="crosshair-x" id="crosshairX"></div>
+          <div class="crosshair-y" id="crosshairY"></div>
+
+          <div class="hud-pill hud-client">Viewport client: <span id="hudClient">0, 0</span></div>
+          <div class="hud-pill hud-offset">Target offset: <span id="hudOffset">0, 0</span></div>
+
+          <div class="target-element" id="targetElement">
+            <div class="target-header">INTERACTIVE TARGET ELEMENT</div>
+            <p>
+              Hover inside this box to see `offsetX` and `offsetY` reset relative to this element's
+              padding edge!
+            </p>
+            <div class="target-stats">
+              <span>offsetParent: &lt;div#radarArena&gt;</span> | <span>padding: 24px</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real-Time Coordinates Matrix -->
+        <div class="coordinates-matrix">
+          <div class="matrix-card card-client">
+            <div class="matrix-header">
+              <h4>Client Coordinates (Viewport)</h4>
+              <div class="tooltip-container">
+                <span class="tooltip-icon">?</span>
+                <span class="tooltip-text"
+                  >Measured from the top-left corner of the browser viewport (`clientX/Y`).
+                  Unaffected by page scrolling.</span
+                >
+              </div>
+            </div>
+            <div class="matrix-body">
+              <div>
+                <span>clientX:</span> <strong class="list__span" data-name="clientX">0px</strong>
+              </div>
+              <div>
+                <span>clientY:</span> <strong class="list__span" data-name="clientY">0px</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="matrix-card card-page">
+            <div class="matrix-header">
+              <h4>Page Coordinates (Document)</h4>
+              <div class="tooltip-container">
+                <span class="tooltip-icon">?</span>
+                <span class="tooltip-text"
+                  >Measured from the top-left corner of the entire HTML document (`pageX/Y`). If
+                  scrolled down, `pageY` increases while `clientY` stays constant.</span
+                >
+              </div>
+            </div>
+            <div class="matrix-body">
+              <div>
+                <span>pageX:</span> <strong class="list__span" data-name="pageX">0px</strong>
+              </div>
+              <div>
+                <span>pageY:</span> <strong class="list__span" data-name="pageY">0px</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="matrix-card card-offset">
+            <div class="matrix-header">
+              <h4>Offset Coordinates (Target Node)</h4>
+              <div class="tooltip-container">
+                <span class="tooltip-icon">?</span>
+                <span class="tooltip-text"
+                  >Measured relative to the padding edge of the target node (`offsetX/Y`) under the
+                  mouse cursor.</span
+                >
+              </div>
+            </div>
+            <div class="matrix-body">
+              <div>
+                <span>offsetX:</span> <strong class="list__span" data-name="offsetX">0px</strong>
+              </div>
+              <div>
+                <span>offsetY:</span> <strong class="list__span" data-name="offsetY">0px</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="matrix-card card-screen">
+            <div class="matrix-header">
+              <h4>Screen Coordinates (Monitor)</h4>
+              <div class="tooltip-container">
+                <span class="tooltip-icon">?</span>
+                <span class="tooltip-text"
+                  >Measured relative to the physical monitor display's top-left corner
+                  (`screenX/Y`).</span
+                >
+              </div>
+            </div>
+            <div class="matrix-body">
+              <div>
+                <span>screenX:</span> <strong class="list__span" data-name="screenX">0px</strong>
+              </div>
+              <div>
+                <span>screenY:</span> <strong class="list__span" data-name="screenY">0px</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="matrix-card card-layer">
+            <div class="matrix-header">
+              <h4>Layer Coordinates (Non-standard)</h4>
+              <div class="tooltip-container">
+                <span class="tooltip-icon">?</span>
+                <span class="tooltip-text"
+                  >Measured relative to the closest positioned layer/ancestor (`layerX/Y`).</span
+                >
+              </div>
+            </div>
+            <div class="matrix-body">
+              <div>
+                <span>layerX:</span> <strong class="list__span" data-name="layerX">0px</strong>
+              </div>
+              <div>
+                <span>layerY:</span> <strong class="list__span" data-name="layerY">0px</strong>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
-    </div>
-    <section class="window">
-      <h2>Window</h2>
-      <div>
-        <dl>
-          <dt>Width</dt>
-          <dd>outerWidth: <span class="windowSpan" data-name="outerWidth"></span></dd>
-          <dd>innerWidth: <span class="windowSpan" data-name="innerWidth"></span></dd>
-        </dl>
-        <dl>
-          <dt>Height</dt>
-          <dd>outerHeight: <span class="windowSpan" data-name="outerHeight"></span></dd>
-          <dd>innerHeight: <span class="windowSpan" data-name="innerHeight"></span></dd>
-        </dl>
-        <dl>
-          <dt>Scrolling X</dt>
-          <dd>scrollX: <span class="windowSpan" data-name="scrollX"></span></dd>
-          <dd>pageXOffset: <span class="windowSpan" data-name="pageXOffset"></span></dd>
-        </dl>
-        <dl>
-          <dt>Scrolling Y</dt>
-          <dd>scrollY: <span class="windowSpan" data-name="scrollY"></span></dd>
-          <dd>pageYOffset: <span class="windowSpan" data-name="pageYOffset"></span></dd>
-        </dl>
-      </div>
-    </section>
-  </main>
-</body>
 
+      <!-- Screen & Window Details Grid -->
+      <div class="grid-2">
+        <!-- Screen Panel -->
+        <section class="glass-card screen-panel">
+          <h2 class="section-title">
+            <span class="indicator" style="background: var(--color-indigo)"></span> Screen
+            Properties (Monitor)
+          </h2>
+          <p class="section-hint">
+            Information about the user's display monitor (`window.screen`).
+          </p>
+
+          <div class="stats-cards-grid">
+            <div class="stat-pill">
+              <span class="stat-label">screenTop</span>
+              <span class="stat-val screenSpan" data-name="screenTop">0px</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-label">screenLeft</span>
+              <span class="stat-val screenSpan" data-name="screenLeft">0px</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-label">screenX</span>
+              <span class="stat-val screenSpan" data-name="screenX">0px</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-label">screenY</span>
+              <span class="stat-val screenSpan" data-name="screenY">0px</span>
+            </div>
+          </div>
+
+          <div class="details-section">
+            <h3>Full Screen Display Specifications</h3>
+            <ul class="screen-details-list" id="screenDetails"></ul>
+          </div>
+        </section>
+
+        <!-- Window Panel -->
+        <section class="glass-card window-panel">
+          <h2 class="section-title">
+            <span class="indicator" style="background: var(--color-emerald)"></span> Window
+            Dimensions & Scrolling
+          </h2>
+          <p class="section-hint">
+            Information about the browser window chrome (`outer*`), viewport (`inner*`), and active
+            page scroll.
+          </p>
+
+          <div class="window-metrics-container">
+            <!-- Width DL -->
+            <div class="window-metric-box">
+              <div class="wm-header">
+                <h4>Width Properties</h4>
+                <div class="tooltip-container">
+                  <span class="tooltip-icon">?</span>
+                  <span class="tooltip-text"
+                    >`outerWidth` includes browser sidebar and border. `innerWidth` is the visible
+                    viewport width (including scrollbar if present).</span
+                  >
+                </div>
+              </div>
+              <dl class="wm-list">
+                <div>
+                  <dt>outerWidth</dt>
+                  <dd><span class="windowSpan" data-name="outerWidth">0px</span></dd>
+                </div>
+                <div>
+                  <dt>innerWidth</dt>
+                  <dd><span class="windowSpan" data-name="innerWidth">0px</span></dd>
+                </div>
+              </dl>
+            </div>
+
+            <!-- Height DL -->
+            <div class="window-metric-box">
+              <div class="wm-header">
+                <h4>Height Properties</h4>
+                <div class="tooltip-container">
+                  <span class="tooltip-icon">?</span>
+                  <span class="tooltip-text"
+                    >`outerHeight` includes tabs, address bar, bookmarks bar, and borders.
+                    `innerHeight` is the visible viewport height.</span
+                  >
+                </div>
+              </div>
+              <dl class="wm-list">
+                <div>
+                  <dt>outerHeight</dt>
+                  <dd><span class="windowSpan" data-name="outerHeight">0px</span></dd>
+                </div>
+                <div>
+                  <dt>innerHeight</dt>
+                  <dd><span class="windowSpan" data-name="innerHeight">0px</span></dd>
+                </div>
+              </dl>
+            </div>
+
+            <!-- Scrolling X DL -->
+            <div class="window-metric-box">
+              <div class="wm-header">
+                <h4>Horizontal Scroll (`scrollX`)</h4>
+                <div class="tooltip-container">
+                  <span class="tooltip-icon">?</span>
+                  <span class="tooltip-text"
+                    >Number of pixels the document has been scrolled horizontally (`scrollX` or
+                    `pageXOffset`).</span
+                  >
+                </div>
+              </div>
+              <dl class="wm-list">
+                <div>
+                  <dt>scrollX</dt>
+                  <dd><span class="windowSpan" data-name="scrollX">0px</span></dd>
+                </div>
+                <div>
+                  <dt>pageXOffset</dt>
+                  <dd><span class="windowSpan" data-name="pageXOffset">0px</span></dd>
+                </div>
+              </dl>
+            </div>
+
+            <!-- Scrolling Y DL -->
+            <div class="window-metric-box">
+              <div class="wm-header">
+                <h4>Vertical Scroll (`scrollY`)</h4>
+                <div class="tooltip-container">
+                  <span class="tooltip-icon">?</span>
+                  <span class="tooltip-text"
+                    >Number of pixels the document has been scrolled vertically (`scrollY` or
+                    `pageYOffset`).</span
+                  >
+                </div>
+              </div>
+              <dl class="wm-list">
+                <div>
+                  <dt>scrollY</dt>
+                  <dd><span class="windowSpan" data-name="scrollY">0px</span></dd>
+                </div>
+                <div>
+                  <dt>pageYOffset</dt>
+                  <dd><span class="windowSpan" data-name="pageYOffset">0px</span></dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="studio-footer">
+      <p>
+        <strong>DOM Explorer Studio</strong> — Built for Upwork Portfolio Demonstration. Designed by
+        <strong>Arman Grigoryan</strong>.
+      </p>
+    </footer>
+  </body>
 </html>

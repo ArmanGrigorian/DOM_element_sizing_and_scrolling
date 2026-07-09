@@ -1,7 +1,9 @@
 export default function getDisplayParams(screenDetails) {
-  const fragment = new DocumentFragment();
-  
-	for (let key in screen) {
+	if (!screenDetails) return;
+	screenDetails.innerHTML = "";
+	const fragment = new DocumentFragment();
+
+	for (let key in window.screen) {
 		const unnecessary = [
 			"onchange",
 			"orientation",
@@ -9,9 +11,10 @@ export default function getDisplayParams(screenDetails) {
 			"dispatchEvent",
 			"removeEventListener",
 		];
-		if (!unnecessary.includes(key)) {
+		const val = window.screen[key];
+		if (!unnecessary.includes(key) && typeof val !== "function" && typeof val !== "object") {
 			const li = document.createElement("li");
-			li.textContent = `${key}: ${screen[key]}${Number.isFinite(screen[key]) ? "px" : ""}`;
+			li.textContent = `${key}: ${val}${Number.isFinite(val) ? "px" : ""}`;
 			fragment.append(li);
 		}
 	}

@@ -1,39 +1,46 @@
 import { animateSpan, getRandomColor } from "./index.js";
 
 export default function moveElement(e, element, spans) {
+	if (!element || !e.target) return;
+	const offsetTopSpan = document.getElementById("offsetTop");
+	const offsetLeftSpan = document.getElementById("offsetLeft");
+
 	switch (e.target.className) {
 		case "up":
 			element.style.transform += "translateY(-10px)";
 			element.style.borderColor = getRandomColor();
-			console.log(spans.offsetTop.textContent);
-			spans.offsetTop.textContent = `${
-				(Number.parseInt(spans.offsetTop.textContent) || element.offsetTop) + 10
-			}px`;
-			animateSpan(spans.offsetTop);
+			if (offsetTopSpan) {
+				const currentVal = Number.parseInt(offsetTopSpan.textContent) || element.offsetTop;
+				offsetTopSpan.textContent = `${currentVal - 10}px`;
+				animateSpan(offsetTopSpan);
+			}
 			break;
 		case "right":
 			element.style.transform += "translateX(10px)";
 			element.style.borderColor = getRandomColor();
-			spans.offsetLeft.textContent = `${
-				(Number.parseInt(spans.offsetLeft.textContent) || element.offsetLeft) + 10
-			}px`;
-			animateSpan(spans.offsetLeft);
+			if (offsetLeftSpan) {
+				const currentVal = Number.parseInt(offsetLeftSpan.textContent) || element.offsetLeft;
+				offsetLeftSpan.textContent = `${currentVal + 10}px`;
+				animateSpan(offsetLeftSpan);
+			}
 			break;
 		case "down":
 			element.style.transform += "translateY(10px)";
 			element.style.borderColor = getRandomColor();
-			spans.offsetTop.textContent = `${
-				(Number.parseInt(spans.offsetTop.textContent) || element.offsetTop) - 10
-			}px`;
-			animateSpan(spans.offsetTop);
+			if (offsetTopSpan) {
+				const currentVal = Number.parseInt(offsetTopSpan.textContent) || element.offsetTop;
+				offsetTopSpan.textContent = `${currentVal + 10}px`;
+				animateSpan(offsetTopSpan);
+			}
 			break;
 		case "left":
 			element.style.transform += "translateX(-10px)";
 			element.style.borderColor = getRandomColor();
-			spans.offsetLeft.textContent = `${
-				(Number.parseInt(spans.offsetLeft.textContent) || element.offsetLeft) - 10
-			}px`;
-			animateSpan(spans.offsetLeft);
+			if (offsetLeftSpan) {
+				const currentVal = Number.parseInt(offsetLeftSpan.textContent) || element.offsetLeft;
+				offsetLeftSpan.textContent = `${currentVal - 10}px`;
+				animateSpan(offsetLeftSpan);
+			}
 			break;
 		default:
 			break;
